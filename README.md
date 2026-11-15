@@ -13,13 +13,24 @@ A clipboard history for macOS that lives in the menu bar. It remembers the **tex
 - Menu bar menu: last 10 clips, Pause Recording, Launch at Login, Clear History
 - History is stored locally in `~/Library/Application Support/ClipStash/` (owner-only permissions)
 
-## Build & run
+## Install
+
+1. Download **ClipStash-1.0.dmg** from the [latest release](../../releases/latest).
+2. Open it and drag **ClipStash** into **Applications**.
+3. The app isn't notarized by Apple, so the first launch is blocked. Open it once from
+   **System Settings → Privacy & Security → "Open Anyway"**, or run:
+
+   ```bash
+   xattr -dr com.apple.quarantine /Applications/ClipStash.app
+   ```
+
+## Build from source
 
 Requires macOS 13+ and the Xcode command line tools (`xcode-select --install`).
 
 ```bash
-./build.sh
-open ClipStash.app
+./build.sh            # builds ClipStash.app
+./release.sh 1.0      # builds dist/ClipStash-1.0.dmg
 ```
 
 Grant **Accessibility** permission (System Settings → Privacy & Security → Accessibility) so ClipStash can paste into other apps. Without it, choosing a clip copies it and you press ⌘V yourself.
