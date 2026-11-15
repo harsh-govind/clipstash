@@ -474,6 +474,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         watcher.onNewClip = { [weak self] in if self?.history.isVisible == true { self?.history.reload() } }
         watcher.start()
 
+        // Open at login by default the first time; after that the menu toggle is respected.
+        if !UserDefaults.standard.bool(forKey: "didSetUpLaunchAtLogin") {
+            UserDefaults.standard.set(true, forKey: "didSetUpLaunchAtLogin")
+            try? SMAppService.mainApp.register()
+        }
+
         hotKeyAction = { [weak self] in self?.toggleHistory() }
         hotKeyOK = registerHotKey()
 
